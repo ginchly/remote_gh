@@ -1,6 +1,18 @@
 $(document).ready(function() {
   // Handler for .ready() called.
 
+
+	var createSlides = function(numSlides) {
+	for (var i=0;i<numSlides;i++)
+		{
+			// Start slide numbers from 1 not 0
+			var slideNum = i + 1;
+			// Add the "slide" to the DOM
+			$('#sectionwrapper').append('<section><div><h2>Slide ' + slideNum +'</h2></div></section>');
+		}
+	};
+	createSlides(5);
+
     slideNav = function(eventObject, targetElement)
 	{
 		console.log(targetElement.id);
@@ -10,28 +22,6 @@ $(document).ready(function() {
 
 	delegate.on('click', '.js-slide-nav-btn', slideNav);
 
-
-	/** Demo one **/
-
-	// Set up options to be used by the two vertical scrollers and create them
-	var opts = {
-		scrollingX: false,
-		scrollResponseBoundary: 1, // This is the default response boundary, spelt out for reference
-		scrollBoundary: 15
-	};
-	new FTScroller(document.querySelector('#gallery_one .scrollable_v1'), opts);
-	new FTScroller(document.querySelector('#gallery_one .scrollable_v2'), opts);
-
-	// Set up the horizontal scroller, enabling snapping and disabling bouncing
-	var panningOpts = {
-		scrollingY: false,
-		scrollbars: false,
-		snapping: true,
-		scrollResponseBoundary: 8,
-		scrollBoundary: 20,
-		bouncing: false
-	};
-	var scroller = new FTScroller(document.querySelector('#gallery_one .scrollable_h'), panningOpts);
 
 	function clearInfo() {
 		window.setTimeout(function () {
@@ -44,7 +34,8 @@ $(document).ready(function() {
 	var scroller2 = new FTScroller(document.getElementById('scrollable'), {
 		scrollingY: false,
 		snapping: true,
-		scrollbars: false
+		scrollbars: false,
+		paginatedSnap: true
 	});
 
 	scroller2.addEventListener('reachedstart', function (response) {
@@ -55,8 +46,19 @@ $(document).ready(function() {
 	scroller2.addEventListener('scrollinteractionend', function (response) {
 		document.getElementById('info').innerHTML = 'Scroller reached end in the ' + response.axis + ' axis';
 		console.log(response);
+		/*
+		var jqxhr = $.ajax( "example.php" )
+		    .done(function() { alert("success"); })
+		    .fail(function() { alert("error"); })
+		    .always(function() { alert("complete"); });
+		    */
 		clearInfo();
 	});
+
+	var scrollableWidth = $("#scrollable").width();
+	$("#sectionwrapper section").width(scrollableWidth);
+
+	console.log(scrollableWidth);
 
 });
 
