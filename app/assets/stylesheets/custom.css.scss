@@ -9,6 +9,7 @@ body {
 	padding-top: 60px;
 }
 
+body, html { height: 100%; overflow: hidden; padding: 0; margin: 0; }
 
 
 /* Set the size of the scroller.  Visible border to make the demo easier to understand */

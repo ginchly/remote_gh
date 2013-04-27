@@ -16,3 +16,4 @@
 //= require_tree .
 //= require delegate.js
 //= require ftscroller.js
+//= require jgestures.min.js

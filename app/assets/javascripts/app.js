@@ -2,6 +2,8 @@ $(document).ready(function() {
   // Handler for .ready() called.
 
 
+	var scrollableWidth = $("#scrollable").width();
+
 	var createSlides = function(numSlides) {
 	for (var i=0;i<numSlides;i++)
 		{
@@ -10,8 +12,10 @@ $(document).ready(function() {
 			// Add the "slide" to the DOM
 			$('#sectionwrapper').append('<section><div><h2>Slide ' + slideNum +'</h2></div></section>');
 		}
+		$("#sectionwrapper").width(numSlides * scrollableWidth);
 	};
 	createSlides(5);
+	$("#sectionwrapper section").width(scrollableWidth);
 
     slideNav = function(eventObject, targetElement)
 	{
@@ -30,6 +34,8 @@ $(document).ready(function() {
 	}
 
 
+/*
+
 
 	var scroller2 = new FTScroller(document.getElementById('scrollable'), {
 		scrollingY: false,
@@ -38,27 +44,35 @@ $(document).ready(function() {
 		paginatedSnap: true
 	});
 
-	scroller2.addEventListener('reachedstart', function (response) {
-		document.getElementById('info').innerHTML = 'Scroller reached start in the ' + response.axis + ' axis';
-		clearInfo();
+	scroller2.addEventListener('segmentwillchange', function (response) {
+		console.log('changed');
 	});
 
 	scroller2.addEventListener('scrollinteractionend', function (response) {
 		document.getElementById('info').innerHTML = 'Scroller reached end in the ' + response.axis + ' axis';
 		console.log(response);
-		/*
-		var jqxhr = $.ajax( "example.php" )
-		    .done(function() { alert("success"); })
-		    .fail(function() { alert("error"); })
-		    .always(function() { alert("complete"); });
-		    */
+
 		clearInfo();
 	});
 
-	var scrollableWidth = $("#scrollable").width();
-	$("#sectionwrapper section").width(scrollableWidth);
+*/
+
+/*
+
+
+	debugger;
+	var wholePageScroller = new FTScroller(document.getElementById('container-scrollable'), {
+		scrollingX: false
+	});
+
+	wholePageScroller.addEventListener('segmentwillchange', function (response) {
+		console.log('verticalchanged');
+	});
+
 
 	console.log(scrollableWidth);
+
+	*/
 
 });
 
