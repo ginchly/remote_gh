@@ -17,3 +17,4 @@
 //= require delegate.js
 //= require ftscroller.js
 //= require jgestures.min.js
+//= require quo.js
