@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 	var password = 'androidalienofdeath';
 	loginUser(password);
-	//initSlideshow();
+	initSlideshow();
 
 });
 
@@ -30,7 +30,7 @@ function loginUser(password) {
 	(function(data, textStatus, jqXHR)
 		{
 			// On success get list of that users slideshows
-			getSlideshowList();
+			//getSlideshowList();
 		}
     )
     .fail(function() { alert("error"); });
