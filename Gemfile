@@ -9,6 +9,9 @@ group :development do
 	gem 'sqlite3'
 end
 
+group :production do
+	gem 'sqlite3'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,6 +28,10 @@ end
 gem 'jquery-rails'
 gem 'oauth2'
 gem 'google_drive'
+
+gem 'therubyracer'  # If using Ruby
+gem 'jquery-rails'  # If using Bootstrap's JS plugins.
+gem 'less-rails-bootstrap'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
