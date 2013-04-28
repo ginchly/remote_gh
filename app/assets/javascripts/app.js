@@ -17,6 +17,11 @@ window.onload = function() {
 
 	delegate = new Delegate(document);
 
+	// reset timer
+	timer = 0;
+	setInterval(decreaseTimer, 1000);
+	delegate.on('click', '#js-timer-icon', incrementTimer);
+
 	var password = 'androidalienofdeath';
 	// login user and get the list of slideshows, assigned to global var slideshowList
 	$('#login').submit(loginUser(password));
@@ -68,9 +73,7 @@ function initSlideshow(event) {
 
 	// Initialisation
 	var presentationDetails;
-	// reset timer
-	timer = 0;
-	setInterval(decreaseTimer, 1000);
+	
 
 	// Get number of slides, use id of delegate element
 	var url = 'http://tatw.name:8000/get_info/' + event.target.id;
@@ -100,7 +103,7 @@ function initSlideshow(event) {
 
 
     delegate.on('click', '.js-end-slideshow', endSlideshow);
-    delegate.on('click', '#js-timer-icon', incrementTimer);
+    
 
 	// Set up FT scroller on scrollable element
 	var slideScroll = new FTScroller(document.getElementById('scrollable'), {
@@ -192,10 +195,19 @@ function incrementTimer() {
 	} else {
 		timer = timer + 300;
 	}
-	$("#time-remaining").html(timer);
+	displayTimer("#time-remaining");
 }
 
 function decreaseTimer() {
 	timer = timer -1;
-	$("#time-remaining").html(timer);
+	displayTimer("#time-remaining");
+}
+
+function displayTimer(targetDiv) {
+	if (timer < 0) {
+		timer = 0;
+	}
+	var minutes = Math.floor(timer / 60);
+	var seconds = timer - minutes * 60;
+	$(targetDiv).html(minutes + " mins" + seconds + " secs");
 }
