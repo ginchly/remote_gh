@@ -3,7 +3,7 @@
 @import "jquery_mobile.css";
 
 /* Since the entire page is the scroll container, set body and html to 100% height to disable browser native scrolling.  Remove default padding or margin to avoid native scrollbars. */
-body, html { height: 100%; overflow: hidden;  }
+body, html { height: 100%; overflow: hidden; font-family: arial;  }
 
 /* Set the size of the scroller.  Visible border to make the demo easier to understand */
 #scrollable { 
