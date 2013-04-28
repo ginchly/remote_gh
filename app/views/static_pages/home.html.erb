@@ -41,7 +41,8 @@
 		<div class="toolbar">
 			<a href="#filelist" data-transition="flow" class="js-end-slideshow"><%= image_tag "homeicon.png", :id => "homeicon" %></a>
 			<a href="#" class="js-end-slideshow"><%= image_tag "stopbtn.png", :class => "endicon" %></a>
-			<a href="#" class="js-end-slideshow"><%= image_tag "stopbtn.png", :id => "js-timer-icon" %></a>
+			<a href="#" id="js-timer-icon"><%= image_tag "stopbtn.png", :class => "endicon" %></a>
+			<div id="time-remaining"></div>
 		</div>
 	</div><!-- /panel -->   
 </div>

@@ -3,7 +3,7 @@ var currentSlide;
 var delegate;
 var countdown = 0;
 
-$(document).ready(function() {
+window.onload = function() {
 
 	// Set up ajax so it works with credentials
 	$.ajaxSetup({
@@ -17,22 +17,12 @@ $(document).ready(function() {
 
 	delegate = new Delegate(document);
 
-
-	$('#loadingDiv')
-		.hide()  // hide it initially
-		.ajaxStart(function() {
-			$(this).show();
-		})
-		.ajaxStop(function() {
-		$(this).hide();
-    });
-
 	var password = 'androidalienofdeath';
 	// login user and get the list of slideshows, assigned to global var slideshowList
 	$('#login').submit(loginUser(password));
 	//initSlideshow();
 
-});
+};
 
 function loginUser(password) {
 	// Get login cookie
@@ -80,6 +70,7 @@ function initSlideshow(event) {
 	var presentationDetails;
 	// reset timer
 	timer = 0;
+	setInterval(decreaseTimer, 1000);
 
 	// Get number of slides, use id of delegate element
 	var url = 'http://tatw.name:8000/get_info/' + event.target.id;
@@ -91,23 +82,25 @@ function initSlideshow(event) {
 		{
 			presentationDetails = JSON.parse(jqxhr.responseText).presentations[0];
 			url = 'http://tatw.name:8000/start/' + event.target.id;
+
+			var jqxhrGetSlideshow = $.ajax({
+				url: url
+			}).done
+			(function(data, textStatus, jqXHR)
+				{
+					// On success set up slides
+					createSlides(presentationDetails);
+				}
+			)
+			.fail(function() { alert("error"); });
 		}
     )
     .fail(function() { alert("error"); });
 
-	var jqxhrGetSlideshow = $.ajax({
-		url: url
-	}).done
-	(function(data, textStatus, jqXHR)
-		{
-			// On success set up slides
-			createSlides(presentationDetails);
-		}
-    )
-    .fail(function() { alert("error"); });
+
 
     delegate.on('click', '.js-end-slideshow', endSlideshow);
-    delegate.on('click', '.js-timer-icon', incrementTimer);
+    delegate.on('click', '#js-timer-icon', incrementTimer);
 
 	// Set up FT scroller on scrollable element
 	var slideScroll = new FTScroller(document.getElementById('scrollable'), {
@@ -133,21 +126,6 @@ function initSlideshow(event) {
 		changeSlide(direction);
 	});
 
-	// Subscribe to swipe up
-	$$('#scrollable').swipeDown(function() {
-		console.log('swipe down footer');
-		$(".navbar-inner").animate({
-			height: 700
-			}, 750 );
-	});
-	$$('.navbar').swipeUp(function() {
-		console.log('swipe down footer');
-
-		$(".navbar-inner").animate({
-			height: 50
-		}, 750 );
-	});
-
 	// Subscribe to pinch to go back to menu
 	$$('#scrollable').pinchIn(function() {
 		alert('pinch');
@@ -168,11 +146,9 @@ function initSlideshow(event) {
 function endSlideshow() {
 	// send ajax request to end slideshow
 	var url = 'http://tatw.name:8000/close';
-	
 	var jqxhr = $.ajax({
 		url: url
 	});
-	
 
 	// delete all sections from slideshows
 	$('#sectionwrapper').empty();
@@ -211,5 +187,15 @@ function createSlides(presentationDetails) {
 
 
 function incrementTimer() {
+	if (timer < 300) {
+		timer = timer + 60;
+	} else {
+		timer = timer + 300;
+	}
+	$("#time-remaining").html(timer);
+}
 
+function decreaseTimer() {
+	timer = timer -1;
+	$("#time-remaining").html(timer);
 }
