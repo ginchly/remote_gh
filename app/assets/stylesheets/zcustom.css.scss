@@ -230,3 +230,25 @@ margin-top: -27px;
 position: relative;
 text-align: center;
 }
+
+
+#timer-set {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+#time-remaining, #js-timer-icon {
+	float: left;
+	margin-right: 15px;
+}
+
+#time-remaining {
+	text-shadow: none;
+	color: white;
+	margin-top: 8px;
+}
+
+#js-timer-icon {
+	margin-bottom: 5px
+}

@@ -53,7 +53,7 @@ function getSlideshowList() {
 
 function showSlideshowList(slideshowList) {
 
-	// $('#slideshowList').empty();
+	$('#slideshowList').empty();
 
 	var slideshows = JSON.parse(slideshowList).presentations;
 	for (var i=0;i<slideshows.length;i++)
@@ -76,7 +76,8 @@ function initSlideshow(event) {
 
 	// Initialisation
 	var presentationDetails;
-	
+	// reset timer
+	timer = 0;
 
 	// Get number of slides, use id of delegate element
 	var url = 'http://tatw.name:8000/get_info/' + event.target.id;
