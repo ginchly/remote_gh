@@ -40,7 +40,7 @@ a {
 	text-decoration: none;
 }
 .logo img {
-		margin:0 auto;
+	margin:0 auto;
 	width: 250px;
 	display:block;
 	margin-bottom:0px;
@@ -48,9 +48,14 @@ a {
 }
 
 form {
-margin:0px auto;
-width: 400px;
+
 	margin-top:-43px;
+}
+
+.maincontent {
+	width:400px;
+	margin: 0 auto;
+	
 }
 
 h2 {
