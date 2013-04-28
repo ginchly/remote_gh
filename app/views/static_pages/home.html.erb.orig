@@ -3,7 +3,7 @@
 		<div class="logo">
 			<%= image_tag "logo.png" %>
 		</div>
-
+		<div class="maincontent">
 		<form action="">
 			<div data-role="fieldcontain">
 				<input name="password" id="password" placeholder="Password.." value="" type="password" class="password">
@@ -11,6 +11,9 @@
 			<a href="#filelist" data-transition="flow"> <button type="submit" id="login" >Login</button></a>
 		</form>
 
+
+					<a href="#" id="js-timer-icon"><%= image_tag "stopbtn.png", :class => "endicon" %></a>
+			<div id="time-remaining"></div>
 	</div>
 </div>
 
@@ -18,10 +21,7 @@
 <div data-role="page" id="filelist">
 	<div data-role="header">
 		<div data-role="content" id="topheader">
-			<a href="#home" data-transition="flow"><%= image_tag "logosmall.png" %></a?
-		</div>
-		<div data-role="content" id="bottomheader">
-			Select your presentation
+			<%= image_tag "logosmall.png" %>
 		</div>
 	</div>
 	<div data-role="content">
@@ -46,8 +46,7 @@
 		<div class="toolbar">
 			<a href="#filelist" data-transition="flow" class="js-end-slideshow"><%= image_tag "homeicon.png", :id => "homeicon" %></a>
 			<a href="#" class="js-end-slideshow"><%= image_tag "stopbtn.png", :class => "endicon" %></a>
-			<a href="#" id="js-timer-icon"><%= image_tag "stopbtn.png", :class => "endicon" %></a>
-			<div id="time-remaining"></div>
+
 		</div>
 	</div><!-- /panel -->   
 </div>

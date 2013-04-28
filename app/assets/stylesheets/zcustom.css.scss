@@ -1,6 +1,4 @@
-//@import "twitter/bootstrap";
-//@import "twitter/bootstrap-responsive";
-@import "jquery_mobile.css";
+
 
 /* Since the entire page is the scroll container, set body and html to 100% height to disable browser native scrolling.  Remove default padding or margin to avoid native scrollbars. */
 body, html { height: 100%; overflow: hidden;  }
@@ -44,7 +42,8 @@ a {
 	width: 250px;
 	display:block;
 	margin-bottom:0px;
-	margin-left: 17px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 form {
@@ -88,8 +87,11 @@ h2 {
 	color:#fff;
 	font-family:  arial;
 	font-weight: normal;
+	width: 100%;
+	height: 40px; 
 	
 }
+
 
 .ui-btn:hover {
 	color:#fff;

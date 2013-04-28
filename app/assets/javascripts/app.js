@@ -3,7 +3,7 @@ var currentSlide;
 var delegate;
 var countdown = 0;
 
-window.onload = function() {
+$(document).ready(function() {
 
 	// Set up ajax so it works with credentials
 	$.ajaxSetup({
@@ -23,11 +23,12 @@ window.onload = function() {
 	delegate.on('click', '#js-timer-icon', incrementTimer);
 
 	var password = 'androidalienofdeath';
+	loginUser(password);
 	// login user and get the list of slideshows, assigned to global var slideshowList
-	$('#login').submit(loginUser(password));
+	//$('#login').submit(loginUser(password));
 	//initSlideshow();
 
-};
+});
 
 function loginUser(password) {
 	// Get login cookie
@@ -209,5 +210,5 @@ function displayTimer(targetDiv) {
 	}
 	var minutes = Math.floor(timer / 60);
 	var seconds = timer - minutes * 60;
-	$(targetDiv).html(minutes + " mins" + seconds + " secs");
+	$(targetDiv).html(minutes + " mins " + seconds + " secs");
 }
