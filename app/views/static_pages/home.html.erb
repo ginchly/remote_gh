@@ -23,9 +23,9 @@
 			Select your presentation
 		</div>
 	</div>
-	<div data-role="content" id="slideshowList">
-		<ul data-role="listview" >
-		<li><a href="#appcontroller" data-transition="flip">Presentation 1</a></li>
+	<div data-role="content">
+		<ul data-role="listview" id="slideshowList">
+			<li><a href="#appcontroller" data-transition="flip">Presentation 1</a></li>
 		</ul>
 	</div>
 </div>
@@ -45,7 +45,6 @@
 	<div  id="mypanel">
 		<div class="toolbar">
 			<a href="#filelist" data-transition="flow" class="js-end-slideshow"><%= image_tag "homeicon.png", :id => "homeicon" %></a>
-			<a href="#" class="js-end-slideshow"><%= image_tag "stopbtn.png", :class => "endicon" %></a>
 			<a href="#" id="js-timer-icon"><%= image_tag "stopbtn.png", :class => "endicon" %></a>
 			<div id="time-remaining"></div>
 		</div>

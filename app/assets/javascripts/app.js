@@ -53,14 +53,16 @@ function getSlideshowList() {
 
 function showSlideshowList(slideshowList) {
 
-	$('#slideshowList').empty();
-	
+	// $('#slideshowList').empty();
+
 	var slideshows = JSON.parse(slideshowList).presentations;
 	for (var i=0;i<slideshows.length;i++)
 	{
 		// Add the slideshow to the list
 		$('#slideshowList').append('<li><a href="#appcontroller" class="js-load-slideshow" data-transition="flip" id="' + slideshows[i].file + '"">' + slideshows[i].title +'</a></li>');
+
 	}
+	$('ul').listview('refresh');
 
 	// Add click handlers to slideshow lists
 	delegate.on('click', '.js-load-slideshow', initSlideshow);
