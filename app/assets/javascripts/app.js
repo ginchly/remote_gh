@@ -5,7 +5,6 @@ var countdown = 0;
 var timer;
 
 $(document).ready(function() {
-
 	// Set up ajax so it works with credentials
 	$.ajaxSetup({
 		type: "POST",
@@ -134,8 +133,8 @@ function initSlideshow(event) {
 
 	// Subscribe to pinch to go back to menu
 	$$('#scrollable').pinchIn(function() {
-		alert('pinch');
 		endSlideshow();
+		$.mobile.changePage('#filelist');
 	});
 
 	slideScroll.addEventListener('scrollstart', function (response) {
