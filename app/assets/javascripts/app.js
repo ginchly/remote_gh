@@ -80,6 +80,7 @@ function initSlideshow(event) {
 	var presentationDetails;
 	// reset timer
 	timer = 0;
+	setInterval(decreaseTimer, 1000);
 
 	// Get number of slides, use id of delegate element
 	var url = 'http://tatw.name:8000/get_info/' + event.target.id;
@@ -107,7 +108,7 @@ function initSlideshow(event) {
     .fail(function() { alert("error"); });
 
     delegate.on('click', '.js-end-slideshow', endSlideshow);
-    delegate.on('click', '.js-timer-icon', incrementTimer);
+    delegate.on('click', '#js-timer-icon', incrementTimer);
 
 	// Set up FT scroller on scrollable element
 	var slideScroll = new FTScroller(document.getElementById('scrollable'), {
@@ -168,11 +169,9 @@ function initSlideshow(event) {
 function endSlideshow() {
 	// send ajax request to end slideshow
 	var url = 'http://tatw.name:8000/close';
-	
 	var jqxhr = $.ajax({
 		url: url
 	});
-	
 
 	// delete all sections from slideshows
 	$('#sectionwrapper').empty();
@@ -211,5 +210,15 @@ function createSlides(presentationDetails) {
 
 
 function incrementTimer() {
+	if (timer < 300) {
+		timer = timer + 60;
+	} else {
+		timer = timer + 300;
+	}
+	$("#time-remaining").html(timer);
+}
 
+function decreaseTimer() {
+	timer = timer -1;
+	$("#time-remaining").html(timer);
 }

@@ -13,6 +13,23 @@
 		body, html { height: 100%; overflow: hidden; padding: 0; margin: 0; }
 
 	</style>
+
+	<script>
+		function handleMotionEvent(event) {
+		 
+		    var x = event.accelerationIncludingGravity.x;
+		    var y = event.accelerationIncludingGravity.y;
+		    var z = event.accelerationIncludingGravity.z;
+
+		    if (x > 2) {
+		    	alert(x);
+		    }
+		 
+		    // Do something awesome.
+		}
+		 
+		window.addEventListener("devicemotion", handleMotionEvent, true);
+	</script>
 </head>
 	<div id='scrollable'>
 		<p class="description">This entire page is scrolled using FTScroller.  This may seem redundant but can be useful for snapping, or content in IFRAMEs if native subframe scrolling is not available or does not provide requried features (such as elasticity).  On a desktop or laptop, drag the page up and down to scroll, or use a scrollwheel.  On a touch UI, swipe up and down.</p>
