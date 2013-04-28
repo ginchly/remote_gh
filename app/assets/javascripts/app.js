@@ -2,6 +2,7 @@
 var currentSlide;
 var delegate;
 var countdown = 0;
+var timer;
 
 $(document).ready(function() {
 
@@ -76,8 +77,6 @@ function initSlideshow(event) {
 
 	// Initialisation
 	var presentationDetails;
-	// reset timer
-	timer = 0;
 
 	// Get number of slides, use id of delegate element
 	var url = 'http://tatw.name:8000/get_info/' + event.target.id;
@@ -151,6 +150,8 @@ function initSlideshow(event) {
 }
 
 function endSlideshow() {
+	// reset timer
+	resetTimer();
 	// send ajax request to end slideshow
 	var url = 'http://tatw.name:8000/close';
 	var jqxhr = $.ajax({
@@ -214,4 +215,8 @@ function displayTimer(targetDiv) {
 	var minutes = Math.floor(timer / 60);
 	var seconds = timer - minutes * 60;
 	$(targetDiv).html(minutes + " mins " + seconds + " secs");
+}
+
+function resetTimer() {
+	timer = 0;
 }
