@@ -92,20 +92,22 @@ function initSlideshow(event) {
 		{
 			presentationDetails = JSON.parse(jqxhr.responseText).presentations[0];
 			url = 'http://tatw.name:8000/start/' + event.target.id;
+
+			var jqxhrGetSlideshow = $.ajax({
+				url: url
+			}).done
+			(function(data, textStatus, jqXHR)
+				{
+					// On success set up slides
+					createSlides(presentationDetails);
+				}
+			)
+			.fail(function() { alert("error"); });
 		}
     )
     .fail(function() { alert("error"); });
 
-	var jqxhrGetSlideshow = $.ajax({
-		url: url
-	}).done
-	(function(data, textStatus, jqXHR)
-		{
-			// On success set up slides
-			createSlides(presentationDetails);
-		}
-    )
-    .fail(function() { alert("error"); });
+
 
     delegate.on('click', '.js-end-slideshow', endSlideshow);
     delegate.on('click', '#js-timer-icon', incrementTimer);
