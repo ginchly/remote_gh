@@ -40,15 +40,22 @@ a {
 	text-decoration: none;
 }
 .logo img {
-		margin:0 auto;
+	margin:0 auto;
 	width: 250px;
 	display:block;
 	margin-bottom:0px;
-	margin-left: 0px;
+	margin-left: 17px;
 }
 
 form {
-	margin-top:-50px;
+
+	margin-top:-43px;
+}
+
+.maincontent {
+	width:400px;
+	margin: 0 auto;
+	
 }
 
 h2 {
@@ -71,6 +78,17 @@ h2 {
 	color:#fff;
 	font-family:  arial;
 	font-weight: normal;
+}
+
+#login {
+	background:#1d1d1d;
+	border:none!important;
+	border-radius:  6px;
+	text-shadow: none;
+	color:#fff;
+	font-family:  arial;
+	font-weight: normal;
+	
 }
 
 .ui-btn:hover {
