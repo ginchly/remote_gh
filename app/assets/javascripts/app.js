@@ -52,6 +52,9 @@ function getSlideshowList() {
 }
 
 function showSlideshowList(slideshowList) {
+
+	$('#slideshowList').empty();
+	
 	var slideshows = JSON.parse(slideshowList).presentations;
 	for (var i=0;i<slideshows.length;i++)
 	{
