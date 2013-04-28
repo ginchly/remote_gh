@@ -1,6 +1,7 @@
 // Globals
 var currentSlide;
 var delegate;
+var countdown = 0;
 
 $(document).ready(function() {
 
@@ -8,7 +9,6 @@ $(document).ready(function() {
 	$.ajaxSetup({
 		type: "POST",
 		data: {},
-		dataType: 'json',
 		xhrFields: {
 			withCredentials: true
 		},
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 	var password = 'androidalienofdeath';
 	// login user and get the list of slideshows, assigned to global var slideshowList
-	loginUser(password);
+	$('#login').submit(loginUser(password));
 	//initSlideshow();
 
 });
@@ -63,7 +63,7 @@ function showSlideshowList(slideshowList) {
 	for (var i=0;i<slideshows.length;i++)
 	{
 		// Add the slideshow to the list
-		$('#slideshowList').append('<li class="js-load-slideshow" id="' + slideshows[i].file + '"">' + slideshows[i].title +'</li>');
+		$('#slideshowList').append('<li><a href="#appcontroller" class="js-load-slideshow" data-transition="flip" id="' + slideshows[i].file + '"">' + slideshows[i].title +'</a></li>');
 	}
 
 	// Add click handlers to slideshow lists
@@ -77,24 +77,37 @@ function initSlideshow(event) {
 	// Display loading screen whilst waiting for response
 
 	// Initialisation
+	var presentationDetails;
+	// reset timer
+	timer = 0;
 
 	// Get number of slides, use id of delegate element
 	var url = 'http://tatw.name:8000/get_info/' + event.target.id;
 
 	var jqxhr = $.ajax({
-		url: url,
-		async: false
-	});
-	var presentationDetails = JSON.parse(jqxhr.responseText).presentations[0];
+		url: url
+	}).done
+	(function(data, textStatus, jqxhr)
+		{
+			presentationDetails = JSON.parse(jqxhr.responseText).presentations[0];
+			url = 'http://tatw.name:8000/start/' + event.target.id;
+		}
+    )
+    .fail(function() { alert("error"); });
 
-	url = 'http://tatw.name:8000/start/' + event.target.id;
+	var jqxhrGetSlideshow = $.ajax({
+		url: url
+	}).done
+	(function(data, textStatus, jqXHR)
+		{
+			// On success set up slides
+			createSlides(presentationDetails);
+		}
+    )
+    .fail(function() { alert("error"); });
 
-	delegate.on('click', '.js-end-slideshow', endSlideshow);
-
-	jqxhr = $.ajax({
-		url: url,
-		async: false
-	});
+    delegate.on('click', '.js-end-slideshow', endSlideshow);
+    delegate.on('click', '.js-timer-icon', incrementTimer);
 
 	// Set up FT scroller on scrollable element
 	var slideScroll = new FTScroller(document.getElementById('scrollable'), {
@@ -149,7 +162,6 @@ function initSlideshow(event) {
 		console.log(currentSlide);
 	});
 
-	createSlides(presentationDetails);
 
 }
 
@@ -163,7 +175,6 @@ function endSlideshow() {
 	
 
 	// delete all sections from slideshows
-	debugger;
 	$('#sectionwrapper').empty();
 	// go back to menu
 }
@@ -199,15 +210,6 @@ function createSlides(presentationDetails) {
 }
 
 
-/*
-    slideNav = function(eventObject, targetElement)
-	{
-		console.log(targetElement.id);
-	};
+function incrementTimer() {
 
-	var delegate = new Delegate(document);
-
-	delegate.on('click', '.js-slide-nav-btn', slideNav);
-
-
-*/
+}

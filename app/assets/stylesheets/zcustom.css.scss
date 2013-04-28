@@ -1,0 +1,174 @@
+//@import "twitter/bootstrap";
+//@import "twitter/bootstrap-responsive";
+@import "jquery_mobile.css";
+
+/* Since the entire page is the scroll container, set body and html to 100% height to disable browser native scrolling.  Remove default padding or margin to avoid native scrollbars. */
+body, html { height: 100%; overflow: hidden;  }
+
+/* Set the size of the scroller.  Visible border to make the demo easier to understand */
+#scrollable { 
+	margin-top: 0px; 
+	white-space: nowrap; 
+	width: 100%; 
+	height: 600px; 
+	border: 1px solid gray; 
+	overflow: hidden 
+}
+
+/* Style each 'page' to be the same size and join together into a long horizontal strip.  Use display: table on the section wrapper to get rid of whitespace between the inline-blocks. */
+#sectionwrapper { width: 3600px; display: table }
+
+#sectionwrapper section { 
+	width: 600px; 
+	height: 900px;
+    overflow-y: hidden; /* HIDE overflow; I know, it doesn't make much sense */
+	display: inline-block; 
+	vertical-align: top;
+}
+
+#sectionwrapper section div { padding: 50px; overflow: hidden; white-space: normal;}
+
+/* Styles not relevant to scrolling (just to make the demo look neat and tidy) */
+#v-scrollable { padding: 0 25px; height: 100% }
+
+#home {
+	background: #2d96c6;
+	
+}
+
+a {
+	text-decoration: none;
+}
+.logo img {
+	margin:0 auto;
+	width: 169px;
+	display:block;
+	margin-bottom:20px;
+}
+
+h2 {
+	text-shadow: none;
+	color: white;
+}
+
+.password {
+	height:25px;
+	padding-top:5px;
+	border-radius: 0px!important;
+	border: none;
+}
+
+.ui-btn {
+	background:#1d1d1d;
+	border:none!important;
+	border-radius:  0px;
+	text-shadow: none;
+	color:#fff;
+	font-family: happy, arial;
+	font-weight: normal;
+}
+
+.ui-btn:hover {
+	color:#fff;
+	background: #333333;
+}
+
+#topheader {
+	background: #2d96c6;
+}
+
+.smalllogo {
+	margin: 0 auto;
+	width:161px;
+	display: block;
+}
+
+#filelist {
+	background-image: url('/assets/mainbg.jpg');
+	
+}
+
+.ui-li.ui-btn, .ui-li.ui-field-contain, .ui-li-divider, .ui-li-static {
+margin: 6px 5px 5px 5px;
+background:#fff;
+}
+
+.ui-li.ui-btn:hover {
+background: #c3c3c3; }
+
+#appcontroller {
+	background:#373434!important;
+	
+}
+
+.next img {
+	width: 167px;
+	position: absolute;
+	top:40%;
+	right:10px;
+}
+
+.prev img {
+	width: 167px;
+	position: absolute;
+	top:40%;
+	left:10px;
+}
+
+
+
+#controlpanel {
+	background:#267fa8;
+	height:12px;
+	width: 100%;
+	position: absolute;
+	left:0px;
+	bottom:0px;
+	background-image: url(../img/togbtn.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+#mypanel {
+	background: #267fa8;
+	box-shadow: none;
+	padding-left:10px;
+
+	position: fixed;
+	bottom: 0px;
+	left:0px;
+	width: 100%;
+	height:40px;
+	
+}
+
+#mypanel a {
+	float: left;
+	margin-right:20px;
+	margin-top: 6px;
+	}
+	
+#mypanel a img {
+	width: 25px;
+	height: auto;
+	
+}
+
+@media screen and (max-width: 420px) {
+	
+	
+	
+	.next img {
+	width: 70px!important;
+	height:auto;
+	
+	}
+	
+	.prev img {
+	width: 70px!important;
+	height:auto;
+	
+	}
+	
+}
+
