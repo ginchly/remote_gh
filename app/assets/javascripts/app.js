@@ -3,7 +3,7 @@ var currentSlide;
 var delegate;
 var countdown = 0;
 
-$(document).ready(function() {
+window.onload = function() {
 
 	// Set up ajax so it works with credentials
 	$.ajaxSetup({
@@ -17,22 +17,12 @@ $(document).ready(function() {
 
 	delegate = new Delegate(document);
 
-
-	$('#loadingDiv')
-		.hide()  // hide it initially
-		.ajaxStart(function() {
-			$(this).show();
-		})
-		.ajaxStop(function() {
-		$(this).hide();
-    });
-
 	var password = 'androidalienofdeath';
 	// login user and get the list of slideshows, assigned to global var slideshowList
 	$('#login').submit(loginUser(password));
 	//initSlideshow();
 
-});
+};
 
 function loginUser(password) {
 	// Get login cookie
@@ -134,21 +124,6 @@ function initSlideshow(event) {
 			direction = 'backward';
 		}
 		changeSlide(direction);
-	});
-
-	// Subscribe to swipe up
-	$$('#scrollable').swipeDown(function() {
-		console.log('swipe down footer');
-		$(".navbar-inner").animate({
-			height: 700
-			}, 750 );
-	});
-	$$('.navbar').swipeUp(function() {
-		console.log('swipe down footer');
-
-		$(".navbar-inner").animate({
-			height: 50
-		}, 750 );
 	});
 
 	// Subscribe to pinch to go back to menu
