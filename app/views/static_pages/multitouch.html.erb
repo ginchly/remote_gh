@@ -1,65 +1,154 @@
+<style>
+
+            body {
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+                background-color: #fff;
+            }
+
+            #fullscreenButton {
+                position: absolute;
+                right: 10px;
+                top: 5px;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-weight: 300;
+                font-size: 22px;
+                color: #ff0000;
+            }
+
+        </style>
 
 
-<script type="text/javascript">
+        <script type="text/javascript">
 
-    var lastOrientation;
+            var NUMBER_OF_LAYERS = 20;
+            var MAX_SQ_SIZE = 10;
+            var MIN_SQ_SIZE = 40;
+            var squares;
+            var winW, winH;
+            var lastMouse, lastOrientation;
+            var animationId;
 
-    function init() {
-        lastOrientation = {};
-        window.addEventListener('resize', doLayout, false);
-        window.addEventListener('deviceorientation', deviceOrientationTest, false);
-        doLayout(document);
-    }
+            function init() {
+                lastOrientation = {};
+                window.addEventListener('resize', doLayout, false);
+                window.addEventListener('deviceorientation', deviceOrientationTest, false);
+                doLayout(document);
+            }
 
-    // Does the gyroscope or accelerometer actually work?
-    function deviceOrientationTest(event) {
-        window.removeEventListener('deviceorientation', deviceOrientationTest);
-        if (event.beta != null && event.gamma != null) {
-            window.addEventListener('deviceorientation', onDeviceOrientationChange, false);
-            animationId = setInterval(onRenderUpdate, 10); 
-        }
-    }
+            // Does the gyroscope or accelerometer actually work?
+            function deviceOrientationTest(event) {
+                window.removeEventListener('deviceorientation', deviceOrientationTest);
+                if (event.beta != null && event.gamma != null) {
+                    window.addEventListener('deviceorientation', onDeviceOrientationChange, false);
+                    animationId = setInterval(onRenderUpdate, 10); 
+                }
+            }
 
-    function onDeviceOrientationChange(event) {
-        lastOrientation.gamma = event.gamma;
-        lastOrientation.beta = event.beta;
-    }
+            function doLayout(event) {
+                winW = window.innerWidth;
+                winH = window.innerHeight;
+                var surface = id('surface');
+                surface.width = winW;
+                surface.height = winH;
+                squares = new Array(); 
+                var alphaStep = (.9 / NUMBER_OF_LAYERS);
+                for (var i = 0; i < NUMBER_OF_LAYERS; ++i) {
+                    squares.push(new Array());
+                    var alpha = (i * alphaStep) + .1;
+                    for (var j = 0; j <= ((NUMBER_OF_LAYERS - 1) - i); ++j) {
+                        var size = getRandomWholeNumber(winW/MIN_SQ_SIZE, winW/MAX_SQ_SIZE);
+                        var sq = {size:size,
+                                  x:getRandomWholeNumber(0, winW-size),
+                                  y:getRandomWholeNumber(0, winH-size),
+                                  color:'rgba('+getRandomWholeNumber(0, 255)+', '+getRandomWholeNumber(0, 255)+', '+getRandomWholeNumber(0, 255)+', '+ alpha +')'};
+                        squares[i][j] = sq;
+                    }
+                }
+                renderSquares();
+            }
 
-    function onRenderUpdate(event) {
-        var xDelta, yDelta;
-        switch (window.orientation) {
-            case 0:
-                xDelta = lastOrientation.gamma;
-                yDelta = lastOrientation.beta;
-                break;
-            case 180:
-                xDelta = lastOrientation.gamma * -1;
-                yDelta = lastOrientation.beta * -1;
-                break;
-            case 90:
-                xDelta = lastOrientation.beta;
-                yDelta = lastOrientation.gamma * -1;
-                break;
-            case -90:
-                xDelta = lastOrientation.beta * -1;
-                yDelta = lastOrientation.gamma;
-                break;
-            default:
-                xDelta = lastOrientation.gamma;
-                yDelta = lastOrientation.beta;
-        }
-        $("#movement").html(xDelta);
-        if (xDelta < -40) {
-        	alert('slide moved');
-        }
-    }
+            function renderSquares() {
+                var surface = id('surface');
+                var context = surface.getContext('2d');
+                context.clearRect(0, 0, surface.width, surface.height);
+
+                // Cool, but too expensive
+                /*
+                context.shadowOffsetX = 5;
+                context.shadowOffsetY = 5;
+                context.shadowBlur = 10;
+                context.shadowColor = '#000';
+                */
+
+                var iMax = squares.length;
+                for (var i = 0; i < iMax; ++i) {
+                    var jMax = squares[i].length;
+                    for (var j = 0; j < jMax; ++j) {
+                        var sq = squares[i][j];
+                        context.fillStyle = sq.color;
+                        context.fillRect(sq.x, sq.y, sq.size, sq.size);
+                    }
+                }
+            }
 
 
-    function id(name) { return document.getElementById(name); };
+            function moveSquares(xDelta, yDelta) {
+                var iMax = squares.length;
+                for (var i = 0; i < iMax; ++i) {
+                    var jMax = squares[i].length;
+                    for (var j = 0; j < jMax; ++j) {
+                        var sq = squares[i][j];
+                        sq.x += (xDelta / (iMax - (i)));
+                        sq.y += (yDelta / (iMax - (i)));
+                    }
+                }
+                renderSquares();
+            }
 
-    window.onload = init;
+            function onDeviceOrientationChange(event) {
+                lastOrientation.gamma = event.gamma;
+                lastOrientation.beta = event.beta;
+            }
 
-</script>
+            function onRenderUpdate(event) {
+                var xDelta, yDelta;
+                switch (window.orientation) {
+                    case 0:
+                        xDelta = lastOrientation.gamma;
+                        yDelta = lastOrientation.beta;
+                        break;
+                    case 180:
+                        xDelta = lastOrientation.gamma * -1;
+                        yDelta = lastOrientation.beta * -1;
+                        break;
+                    case 90:
+                        xDelta = lastOrientation.beta;
+                        yDelta = lastOrientation.gamma * -1;
+                        break;
+                    case -90:
+                        xDelta = lastOrientation.beta * -1;
+                        yDelta = lastOrientation.gamma;
+                        break;
+                    default:
+                        xDelta = lastOrientation.gamma;
+                        yDelta = lastOrientation.beta;
+                }
+                $("#movement").html(xDelta);
+                if (xDelta < -40) {
+                	alert('slide moved')
+                }
+            }
+
+
+            function id(name) { return document.getElementById(name); };
+            function getRandomWholeNumber(min, max) { return Math.round(((Math.random() * (max - min)) + min)); };
+            function getRandomHex() { return (Math.round(Math.random() * 0xFFFFFF)).toString(16); };
+
+            window.onload = init;
+
+        </script>
 
     </head>
     <body>
