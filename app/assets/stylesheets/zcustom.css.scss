@@ -42,13 +42,13 @@ a {
 	width: 250px;
 	display:block;
 	margin-bottom:0px;
-	margin-left: auto;
+	margin-left: 44px;
 	margin-right: auto;
 }
 
 form {
 
-	margin-top:-43px;
+	margin-top: -8px;
 }
 
 .maincontent {
@@ -65,7 +65,7 @@ font-weight: normal;
 }
 
 .passwordField {
-	height:25px;
+	height:33px;
 	padding-top:5px;
 	border-radius: 0px!important;
 	border: none;
@@ -82,20 +82,24 @@ font-weight: normal;
 }
 
 #login {
-	background:#1d1d1d;
-	border:none!important;
-	border-radius:  6px;
-	text-shadow: none;
-	color:#fff;
-	font-family:  arial;
-	font-weight: normal;
-	padding-left: 25%;
-	padding-right: 25%;
-	padding-top: 5px;
-	padding-bottom:5px;
-	margin-right:auto;
-	margin-left:auto;
-	height: 40px; 
+	background: #1d1d1d;
+border: none !important;
+border-radius: 0px;
+text-shadow: none;
+color: #fff;
+font-family: arial;
+font-weight: normal;
+padding-left: 40%;
+padding-right: 25%;
+padding-top: 5px;
+padding-bottom: 5px;
+margin-right: auto;
+margin-left: auto;
+height: 32px;
+width: 60%;
+display: block;
+font-size: 21px;
+padding-top: 3%;
 	
 }
 
@@ -215,3 +219,14 @@ background: #c3c3c3; }
 	
 }
 
+.logtext {
+	color: white;
+font-size: 14px;
+text-shadow: none;
+line-height: 14px;
+position: relative;
+margin-bottom: 57px;
+margin-top: -27px;
+position: relative;
+text-align: center;
+}
