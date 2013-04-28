@@ -15,19 +15,16 @@ $(document).ready(function() {
 		crossDomain: true
 	});
 
+	var password = 'androidalienofdeath';
+
 	delegate = new Delegate(document);
 
 	// reset timer
 	timer = 0;
 	setInterval(decreaseTimer, 1000);
 	delegate.on('click', '#js-timer-icon', incrementTimer);
-
-	var password = 'androidalienofdeath';
-	loginUser(password);
 	// login user and get the list of slideshows, assigned to global var slideshowList
-	//$('#login').submit(loginUser(password));
-	//initSlideshow();
-
+	delegate.on('click', '#login', function(){loginUser(password);});
 });
 
 function loginUser(password) {
