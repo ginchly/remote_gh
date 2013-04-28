@@ -40,10 +40,15 @@ a {
 	text-decoration: none;
 }
 .logo img {
-	margin:0 auto;
-	width: 169px;
+		margin:0 auto;
+	width: 250px;
 	display:block;
-	margin-bottom:20px;
+	margin-bottom:0px;
+	margin-left: 0px;
+}
+
+form {
+	margin-top:-50px;
 }
 
 h2 {
@@ -61,10 +66,10 @@ h2 {
 .ui-btn {
 	background:#1d1d1d;
 	border:none!important;
-	border-radius:  0px;
+	border-radius:  6px;
 	text-shadow: none;
 	color:#fff;
-	font-family: happy, arial;
+	font-family:  arial;
 	font-weight: normal;
 }
 
