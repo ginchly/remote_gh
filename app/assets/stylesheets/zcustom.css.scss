@@ -100,9 +100,13 @@ h2 {
 	background: #2d96c6;
 }
 
+#bottomheader {
+	background: #252525;
+}
+
 .smalllogo {
 	margin: 0 auto;
-	width:161px;
+	width:170px;
 	display: block;
 }
 
@@ -138,7 +142,9 @@ background: #c3c3c3; }
 	left:10px;
 }
 
-
+#slideshowList {
+	margin-top: 10px;
+}
 
 #controlpanel {
 	background:#267fa8;
