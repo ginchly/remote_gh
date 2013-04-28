@@ -1,23 +1,26 @@
 // Globals
 var currentSlide;
-
-
-
+var delegate;
 
 $(document).ready(function() {
 
+	delegate = new Delegate(document);
+
+
 	$('#loadingDiv')
-    .hide()  // hide it initially
-    .ajaxStart(function() {
-        $(this).show();
-    })
-    .ajaxStop(function() {
-        $(this).hide();
+		.hide()  // hide it initially
+		.ajaxStart(function() {
+			$(this).show();
+		})
+		.ajaxStop(function() {
+		$(this).hide();
     });
 
 	var password = 'androidalienofdeath';
-	loginUser(password);
-	initSlideshow();
+	// login user and get the list of slideshows, assigned to global var slideshowList
+	//loginUser(password);
+	getSlideshowList();
+	//initSlideshow();
 
 });
 
@@ -41,21 +44,50 @@ function getSlideshowList() {
 	var url = 'http://tatw.name:8000/list';
 
 	var jqxhr = $.ajax({
-		url: url,
-		xhrFields: {
-			withCredentials: true
-		}
-	}).done(function() { alert(jqxhr); });
+		url: url
+	}).done(function() { showSlideshowList(jqxhr.responseText); });
+}
 
+function showSlideshowList(slideshowList) {
+	var slideshows = JSON.parse(slideshowList).presentations;
+	for (var i=0;i<slideshows.length;i++)
+	{
+		// Add the slideshow to the list
+		$('#slideshowList').append('<li class="js-load-slideshow" id="' + slideshows[i].file + '"">' + slideshows[i].title +'</li>');
+	}
+
+	// Add click handlers to slideshow lists
+	delegate.on('click', '.js-load-slideshow', initSlideshow);
 }
 
 
 
-function initSlideshow() {
+function initSlideshow(event) {
 	// Make request to load slideshow
 	// Display loading screen whilst waiting for response
 
 	// Initialisation
+
+	// Get number of slides, use id of delegate element
+	var url = 'http://tatw.name:8000/get_info/' + event.target.id;
+
+	var jqxhr = $.ajax({
+		url: url,
+		async: false
+	});
+
+	url = 'http://tatw.name:8000/start/' + event.target.id;
+
+	delegate.on('click', '.js-end-slideshow', endSlideshow);
+
+	jqxhr = $.ajax({
+		url: url,
+		async: false
+	});
+
+	debugger;
+	var presentationDetails = JSON.parse(jqxhr.responseText).presentations[0];
+
 
 	// Set up FT scroller on scrollable element
 	var slideScroll = new FTScroller(document.getElementById('scrollable'), {
@@ -99,6 +131,7 @@ function initSlideshow() {
 	// Subscribe to pinch to go back to menu
 	$$('#scrollable').pinchIn(function() {
 		alert('pinch');
+		endSlideshow();
 	});
 
 	slideScroll.addEventListener('scrollstart', function (response) {
@@ -109,8 +142,23 @@ function initSlideshow() {
 		console.log(currentSlide);
 	});
 
-	createSlides(5);
+	createSlides(presentationDetails);
 
+}
+
+function endSlideshow() {
+	// send ajax request to end slideshow
+	var url = 'http://tatw.name:8000/close';
+	
+	var jqxhr = $.ajax({
+		url: url
+	});
+	
+
+	// delete all sections from slideshows
+	debugger;
+	$('#sectionwrapper').empty();
+	// go back to menu
 }
 
 function changeSlide(direction) {
@@ -121,17 +169,14 @@ function changeSlide(direction) {
 	}
 }
 
-function createSlides(numSlides) {
+function createSlides(presentationDetails) {
 	var scrollableWidth = $("#scrollable").width();
-
-	for (var i=0;i<numSlides;i++)
+	for (var i=0;i<presentationDetails.num_of_pages;i++)
 		{
-			// Start slide numbers from 1 not 0
-			var slideNum = i + 1;
 			// Add the "slide" to the DOM
-			$('#sectionwrapper').append('<section><div><h2>Slide ' + slideNum +'</h2></div></section>');
+			$('#sectionwrapper').append('<section><div><h2>' + presentationDetails.pages[i] +'</h2></div></section>');
 		}
-	$("#sectionwrapper").width(numSlides * scrollableWidth);
+	$("#sectionwrapper").width(presentationDetails.num_of_slides * scrollableWidth);
 	$("#sectionwrapper section").width(scrollableWidth);
 }
 
