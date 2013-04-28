@@ -4,6 +4,17 @@ var delegate;
 
 $(document).ready(function() {
 
+	// Set up ajax so it works with credentials
+	$.ajaxSetup({
+		type: "POST",
+		data: {},
+		dataType: 'json',
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+
 	delegate = new Delegate(document);
 
 
@@ -18,8 +29,7 @@ $(document).ready(function() {
 
 	var password = 'androidalienofdeath';
 	// login user and get the list of slideshows, assigned to global var slideshowList
-	//loginUser(password);
-	getSlideshowList();
+	loginUser(password);
 	//initSlideshow();
 
 });
@@ -33,7 +43,7 @@ function loginUser(password) {
 	(function(data, textStatus, jqXHR)
 		{
 			// On success get list of that users slideshows
-			//getSlideshowList();
+			getSlideshowList();
 		}
     )
     .fail(function() { alert("error"); });
@@ -76,7 +86,7 @@ function initSlideshow(event) {
 		async: false
 	});
 	var presentationDetails = JSON.parse(jqxhr.responseText).presentations[0];
-	
+
 	url = 'http://tatw.name:8000/start/' + event.target.id;
 
 	delegate.on('click', '.js-end-slideshow', endSlideshow);
