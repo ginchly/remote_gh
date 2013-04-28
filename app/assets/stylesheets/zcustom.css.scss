@@ -109,12 +109,19 @@ h2 {
 
 #bottomheader {
 	background: #252525;
+	font-size: 12px;
+	font-family: arial;
+	text-align: center;
+	font-weight: normal;
+	padding:5px 0px 5px 0px;
+	
 }
 
 .smalllogo {
 	margin: 0 auto;
-	width:170px;
+	width:161px;
 	display: block;
+	text-align: center;
 }
 
 #filelist {
