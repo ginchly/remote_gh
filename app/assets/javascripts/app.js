@@ -75,7 +75,8 @@ function initSlideshow(event) {
 		url: url,
 		async: false
 	});
-
+	var presentationDetails = JSON.parse(jqxhr.responseText).presentations[0];
+	
 	url = 'http://tatw.name:8000/start/' + event.target.id;
 
 	delegate.on('click', '.js-end-slideshow', endSlideshow);
@@ -84,10 +85,6 @@ function initSlideshow(event) {
 		url: url,
 		async: false
 	});
-
-	debugger;
-	var presentationDetails = JSON.parse(jqxhr.responseText).presentations[0];
-
 
 	// Set up FT scroller on scrollable element
 	var slideScroll = new FTScroller(document.getElementById('scrollable'), {
@@ -164,8 +161,19 @@ function endSlideshow() {
 function changeSlide(direction) {
 	if (direction === 'forward') {
 		console.log('forward a slide');
+		url = 'http://tatw.name:8000/forward';
+
+		jqxhr = $.ajax({
+			url: url
+		});
+
 	} else if (direction === 'backward') {
 		console.log('back a slide');
+		url = 'http://tatw.name:8000/backward';
+
+		jqxhr = $.ajax({
+			url: url
+		});
 	}
 }
 
