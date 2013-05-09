@@ -1,1 +1,5 @@
 PiProjector - Angelhack London 27/28 April 2013
+
+Rails app with mostly client side logic to allow control of a presentation via http api requests. 
+
+Swiping left and right goes back/forward through the slides (thanks to FTScroller) and pinch to close (thanks to quo.js)
